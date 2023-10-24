@@ -56,9 +56,9 @@ export async function run(benchmarks: string[]): Promise<void> {
             totalResults[id] = result;
         };
 
-        for (const key in require.cache) {
-            delete require.cache[key];
-        }
+        // for (const key in require.cache) {
+        //     delete require.cache[key];
+        // }
         try {
             const script = new vm.Script(`require('./src/bench').BenchSuite.onComplete = onComplete; (require(benchmarkPath).main())`);
             await script.runInNewContext({ benchmarkPath, require, onComplete });

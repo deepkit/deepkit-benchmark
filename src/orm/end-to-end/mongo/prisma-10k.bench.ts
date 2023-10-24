@@ -15,7 +15,7 @@ import { spawnSync } from 'child_process';
 export async function main() {
     const count = 10_000;
 
-    // spawnSync(`./node_modules/.bin/prisma generate --schema src/orm/end-to-end/mongo/model.prisma`, { stdio: 'inherit', shell: true });
+    spawnSync(`./node_modules/.bin/prisma generate --schema src/orm/end-to-end/mongo/model.prisma`, { stdio: 'inherit', shell: true });
     // spawnSync(`./node_modules/.bin/prisma db push --schema=src/orm/end-to-end/mongo/model.prisma --force-reset`, {stdio: 'inherit', shell: true});
 
     const {PrismaClient} = await import('@prisma/client');
@@ -37,7 +37,7 @@ export async function main() {
         }
 
         await bench.runAsyncFix(1, 'insert', async () => {
-            await prisma.model.createMany({ data: items });
+            await (prisma.model as any).createMany({ data: items });
         });
 
         await bench.runAsyncFix(10, 'fetch', async () => {
@@ -50,7 +50,7 @@ export async function main() {
         });
 
         await bench.runAsyncFix(1, 'remove-query', async () => {
-            await prisma.model.deleteMany({});
+            await (prisma.model as any).deleteMany({});
         });
 
         // const dbItems = await session.query(DeepkitModel).find();

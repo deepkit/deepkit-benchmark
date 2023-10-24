@@ -34,4 +34,4 @@ docker run -d --rm --name bench-postgres -d -e POSTGRES_PASSWORD=password -e POS
 
 node_modules/.bin/prisma generate --schema src/orm/end-to-end/mongo/model.prisma
 
-nice -20 npm run benchmark orm/end-to-end/ bson/parse bson/serializer type/serialization/small type/validation
+nice -20 npm run benchmark rpc/grpc rpc/rpc-tcp-server orm/end-to-end/ bson/parse bson/serializer type/serialization/small type/validation
